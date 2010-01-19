@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Enabled</key>
+	<array/>
+	<key>PathNames</key>
+	<array/>
+	<key>standaloneOSXIntel LastLocation</key>
+	<string>/Users/aras/Downloads/TexturePlugin/Texture Project/Unity Player.app</string>
+	<key>standaloneOSXUniversal LastLocation</key>
+	<string>/Users/aras/Desktop/TextureMac.app</string>
+	<key>standaloneWin32 LastLocation</key>
+	<string>/Users/aras/Desktop/TextureWin</string>
+</dict>
+</plist>

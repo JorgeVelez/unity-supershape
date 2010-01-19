@@ -1,0 +1,20 @@
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+
+Project("{088B2EE4-D0E1-1603-643F-CC2F60D2A6CB}") = "Supershape Project", "Supershape Project.csproj", "{21F9AFF5-ED36-B823-B488-6728D1DE683C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{21F9AFF5-ED36-B823-B488-6728D1DE683C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21F9AFF5-ED36-B823-B488-6728D1DE683C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21F9AFF5-ED36-B823-B488-6728D1DE683C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21F9AFF5-ED36-B823-B488-6728D1DE683C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
