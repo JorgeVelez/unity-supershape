@@ -2,39 +2,39 @@ using UnityEngine;
 using System;
 using System.Runtime.InteropServices;
 
-//using Supershape;
-
 public class Bevy : MonoBehaviour {
-	// Unity component interface params
-
-	//private float min_phi = (float) - Math.PI;
-	//private float max_phi = (float) Math.PI;
-	//private float min_theta = (float) - Math.PI/2;
-	//private float max_theta = (float) Math.PI/2;
-	//public bool Enable_Spiral = false;
-	
-	//public Transform obj;
-	
-	public int xSteps = 128;
-	public int ySteps = 128;
+	// Parameters visible in Unity interface
+	public int xSteps = 64;
+    public int ySteps = 64;
 	public int count = 100;
 		
     void Start () {
-		// Create supershapes
-		
-		
-		
+		// Create supershapes		
 		for(int s = 0; s < count; s++)
 		{
-
+            // make game object and move it by a random Vector3
             GameObject newGameObject = new GameObject();
-            newGameObject.AddComponent<Supershape>();
+            newGameObject.transform.localScale *= 10;
+            newGameObject.transform.Translate(150 * UnityEngine.Random.insideUnitSphere);
             
+            // add the supershape script to the game object
+            Supershape newShape = newGameObject.AddComponent<Supershape>();
+
+            // give supershape random parameters in reasonable range
+            newShape.a_a  = 1.0f;
+            newShape.a_b  = 1.0f;
+            newShape.a_m  = UnityEngine.Random.Range(1.0f, 8.0f);
+            newShape.a_n1 = UnityEngine.Random.Range(1.0f, 5.0f);
+            newShape.a_n2 = UnityEngine.Random.Range(1.0f, 5.0f);
+            newShape.a_n3 = UnityEngine.Random.Range(1.0f, 5.0f);
             
-            //Instantiate(obj, new Vector3(0, 0, 0), Quaternion.identity);
-			//Supershape shape = gameObject.AddComponent<Supershape>();
-			/*Supershape shape =*/ //gameObject.AddComponent(shape);
-			//gameObject.AddComponent<MeshRenderer>();
+            newShape.b_a  = 1.0f;
+            newShape.b_b  = 1.0f;
+            newShape.b_m  = UnityEngine.Random.Range(1.0f, 16.0f);
+            newShape.b_n1 = UnityEngine.Random.Range(1.0f, 5.0f);
+            newShape.b_n2 = UnityEngine.Random.Range(1.0f, 5.0f);
+            newShape.b_n3 = UnityEngine.Random.Range(1.0f, 5.0f);
+
 		}
 		
         //    Debug.Log("Game object has no renderer or gui texture to assign the generated texture to!");
@@ -44,7 +44,6 @@ public class Bevy : MonoBehaviour {
 
     }
     
-    // Now we can simply call UpdateTexture which gets routed directly into the plugin
     void Update () {
 
     }

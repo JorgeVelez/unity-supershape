@@ -104,7 +104,7 @@ public class Supershape : MonoBehaviour {
         //m_Texture.SetPixels (m_Pixels, 0);
         //m_Texture.Apply ();
 		
-		CalcSupershape();
+		//CalcSupershape();
     }
 	
 	
@@ -287,3 +287,4 @@ public class Supershape : MonoBehaviour {
 	}
 
 }
+
