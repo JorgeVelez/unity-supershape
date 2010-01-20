@@ -84,7 +84,7 @@ public class Supershape : MonoBehaviour {
 		
 
 		// make vertex data arrays
-		m_Vertices = new Vector3[xSteps * ySteps];
+		m_Vertices = new Vector3[(xSteps+1) * (ySteps+1)];
 		//m_Colors   = new Color[xSteps * ySteps];
 		//m_VerticesHandle = GCHandle.Alloc(m_Vertices, GCHandleType.Pinned);
 		
@@ -216,11 +216,11 @@ public class Supershape : MonoBehaviour {
 		float theta;
 		//float addTheta = (float)Math.PI / ySteps;
 		
-		for (int i = 0; i < xSteps; i++)
+		for (int i = 0; i <= xSteps; i++)
 		{
 			phi = min_phi + ((float)i/xSteps) * (max_phi-min_phi);
 			
-			for (int j = 0; j < ySteps; j++)
+			for (int j = 0; j <= ySteps; j++)
 			{
 				theta = min_theta + ((float)j/ySteps) * (max_theta - min_theta);
 				
@@ -264,12 +264,12 @@ public class Supershape : MonoBehaviour {
 		// TODO: add closing seam(s)
 		
 		int vertexCount = m_Vertices.Length;
-		int[] Triangles = new int[xSteps*(ySteps-1)*2*3];
+		int[] Triangles = new int[xSteps*ySteps*2*3];
 		
 		uint index = 0;
-		for (int i = 0; i < xSteps-1; i++)
+		for (int i = 0; i < xSteps; i++)
 		{
-			for (int j = 0; j < ySteps-1; j++)
+			for (int j = 0; j < ySteps; j++)
 			{
 				Triangles[index++] = (i*xSteps + j) % vertexCount;
 				Triangles[index++] = ((i+1)*xSteps + j) % vertexCount;
