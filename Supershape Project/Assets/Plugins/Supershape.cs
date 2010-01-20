@@ -8,7 +8,9 @@ public class Supershape : MonoBehaviour {
     public enum TransformType { None, Logarithmic, Trigonometric, TransferFunction, Polynomial };
 
     // Unity component interface params
-	public float a_m = 1f;
+    public bool update = false;
+    
+    public float a_m = 1f;
     public float a_a = 1; 
     public float a_b = 1;
 	public float a_n1 = 1f;
@@ -38,29 +40,14 @@ public class Supershape : MonoBehaviour {
     public float transform2_var3;
     public float transform2_var4;
 
-    /*
-    public TransformType transform_type1;
-    public float transform1Var1;
-    public float transform1Var2;
-    public float transform1Var3;
-    public float transform1Var4;
-    
-    public TransformType transform_type2;
-    public float transform2Var1;
-    public float transform2Var2;
-    public float transform2Var3;
-    public float transform2Var4;
-     */
-	
     public int xSteps = 64;
 	public int ySteps = 64;
 
 	// 
 	private Mesh m_SupershapeMesh;
 	private Vector3[] m_Vertices;
-	//private Color[] m_Colors;
 	
-	private GCHandle m_VerticesHandle;
+	//private GCHandle m_VerticesHandle;
 		
     //[DllImport ("UnitySupershape")]
 	//private static extern void GenerateSupershape(IntPtr vertices, IntPtr uv, IntPtr normals);
@@ -71,13 +58,53 @@ public class Supershape : MonoBehaviour {
     //}
 	
     void Start () {
-		
-
-
         // Create game object containing renderer
-        //GameObject myGameObject = new GameObject();
         MeshFilter meshFilter = gameObject.AddComponent<MeshFilter>();
-        gameObject.AddComponent<MeshRenderer>();
+        MeshRenderer renderer = gameObject.AddComponent<MeshRenderer>();
+
+        // random position inside sphere of radius 150
+        gameObject.transform.localScale *= UnityEngine.Random.Range(5f, 7f);
+        gameObject.transform.RotateAroundLocal(UnityEngine.Random.onUnitSphere, UnityEngine.Random.Range(0.0f, 2f * (float) Math.PI));
+        gameObject.transform.Translate(150f * UnityEngine.Random.insideUnitSphere);
+
+        // give supershape random parameters in reasonable range
+        a_a = 1.0f;
+        a_b = 1.0f;
+        a_m = UnityEngine.Random.Range(1.0f, 8.0f);
+        a_n1 = UnityEngine.Random.Range(1.0f, 5.0f);
+        a_n2 = UnityEngine.Random.Range(1.0f, 5.0f);
+        a_n3 = UnityEngine.Random.Range(1.0f, 5.0f);
+
+        b_a = 1.0f;
+        b_b = 1.0f;
+        b_m = UnityEngine.Random.Range(1.0f, 16.0f);
+        b_n1 = UnityEngine.Random.Range(1.0f, 5.0f);
+        b_n2 = UnityEngine.Random.Range(1.0f, 5.0f);
+        b_n3 = UnityEngine.Random.Range(1.0f, 5.0f);
+
+        float low = 1.0f;
+        float high = 1.0f;
+
+        transform1_type = (Supershape.TransformType) UnityEngine.Random.Range(0, 3);
+        transform1_var1 = UnityEngine.Random.Range(low, high);
+        transform1_var2 = UnityEngine.Random.Range(0.2f, 0.5f);
+        transform1_var3 = UnityEngine.Random.Range(low, high);
+        transform1_var4 = UnityEngine.Random.Range(low, high);
+
+        transform2_type = (Supershape.TransformType)UnityEngine.Random.Range(0, 3);
+        transform2_var1 = UnityEngine.Random.Range(low, high);
+        transform2_var2 = UnityEngine.Random.Range(0.2f, 0.5f);
+        transform2_var3 = UnityEngine.Random.Range(low, high);
+        transform2_var4 = UnityEngine.Random.Range(low, high);
+
+        // randomize color
+        float r, g, b, a;
+        r = UnityEngine.Random.Range(0.0f, 1.0f);
+        g = UnityEngine.Random.Range(0.0f, 1.0f);
+        b = UnityEngine.Random.Range(0.0f, 1.0f);
+        a = UnityEngine.Random.Range(0.0f, 1.0f);
+        renderer.material.SetColor("_Color", new Color(r, g, b, a));
+
 		
 		// retrieve a mesh instance
 		m_SupershapeMesh = meshFilter.mesh;
@@ -89,8 +116,7 @@ public class Supershape : MonoBehaviour {
 		//m_VerticesHandle = GCHandle.Alloc(m_Vertices, GCHandleType.Pinned);
 		
 		CalcSupershape();
-		
-        //    Debug.Log("Game object has no renderer or gui texture to assign the generated texture to!");
+
     }
     
     void OnDisable() {
@@ -104,7 +130,8 @@ public class Supershape : MonoBehaviour {
         //m_Texture.SetPixels (m_Pixels, 0);
         //m_Texture.Apply ();
 		
-		//CalcSupershape();
+		if(update)
+            CalcSupershape();
     }
 	
 	
