@@ -55,7 +55,9 @@ public class Supershape : MonoBehaviour
     private float m_Acceleration = 1.0f;
     private float m_maxRotation = 0.1f;
 
+    
     private Vector3 m_Velocity;
+    private Vector3 m_LastVelocity = new Vector3(0.0f, 0.0f, 0.0f);
 
     //private GCHandle m_VerticesHandle;
 
@@ -171,7 +173,11 @@ public class Supershape : MonoBehaviour
         Vector3 rotationTarget = new Vector3(UnityEngine.Random.Range(-1.0f, 1.0f), UnityEngine.Random.Range(-1.0f, 1.0f), UnityEngine.Random.Range(-1.0f, 1.0f));
         m_Velocity = Vector3.RotateTowards(m_Velocity, rotationTarget, m_maxRotation, 0.0f);
         gameObject.transform.Translate(m_Velocity, Space.World);
-        gameObject.transform.LookAt(gameObject.transform.position + m_Velocity, rotationTarget);
+
+        float damping = 0.01f;
+        Vector3 lookDirection = m_LastVelocity * damping + m_Velocity * (1.0f - damping);
+
+        gameObject.transform.LookAt(gameObject.transform.position + lookDirection, rotationTarget);
 
         if (!myOn)
         {
